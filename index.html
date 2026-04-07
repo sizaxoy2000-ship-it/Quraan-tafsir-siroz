@@ -10,8 +10,6 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3144047456957450" crossorigin="anonymous"></script>
     
     <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="https://i.ibb.co/B56sM9HR/IMG-20260322-202243.png">
-    
     <style>
         :root { 
             --gold: #ffbf00; --bg: #02091a; --text-ayah: #ffbf00; --text-trans: #ffffff; 
@@ -82,12 +80,11 @@
     const scrollArea = document.getElementById('mainScroll');
 
     const texts = {
-        ar: { last: "استئناف القراءة 📖", ar: "تفسير سيروز (بالعربية)", ku: "تەفسیری کوردی (سۆراني)", only: "القرآن الكريم", en: "English Translation", searchS: "ابحث عن سورة...", searchA: "ابحث عن كلمة...", backH: "العودة للبداية", backI: "فهرس السور", load: "جاري التحميل...", idx: "فهرس السور" },
+        ar: { last: "استئناف القراءة 📖", ar: "تفسير سيروز (بالعربية)", ku: "تەفسيری کوردی (سۆراني)", only: "القرآن الكريم", en: "English Translation", searchS: "ابحث عن سورة...", searchA: "ابحث عن كلمة...", backH: "العودة للبداية", backI: "فهرس السور", load: "جاري التحميل...", idx: "فهرس السور" },
         en: { last: "Resume Reading 📖", ar: "Siroz Tafsir (Arabic)", ku: "Kurdish Tafsir", only: "Quran Arabic Only", en: "English Translation", searchS: "Search Surah...", searchA: "Search word...", backH: "Back Home", backI: "Surah Index", load: "Loading...", idx: "Surah Index" },
-        sorani: { last: "بەردەوامبوون لە خوێندنەوە 📖", ar: "تەفسیری سيرۆز (عەرەبی)", ku: "تەفسیری کوردی (سۆراني)", only: "قورئانی پیرۆز", en: "وەرگێڕانی ئینگلیزي", searchS: "گەڕان بۆ سورەت...", searchA: "گەڕان بۆ وشە...", backH: "گەڕانەوە بۆ سەرەتا", backI: "فهرستي سورەتەکان", load: "باردەکرێت...", idx: "فهرستي سورەتەکان" }
+        sorani: { last: "بەردەوامبوون لە خوێندنەوە 📖", ar: "تەفسیری سيرۆز (عەرەبي)", ku: "تەفسیری کوردی (سۆراني)", only: "قورئانی پیرۆز", en: "وەرگێڕانی ئینگلیزي", searchS: "گەڕان بۆ سورەت...", searchA: "گەڕان بۆ وشە...", backH: "گەڕانەوە بۆ سەرەتا", backI: "فهرستي سورەتەکان", load: "باردەکرێت...", idx: "فهرستي سورەتەکان" }
     };
 
-    // --- نظام الرجوع المطور ---
     function showP(id, push = true) {
         if (push) history.pushState({p: id}, null, "");
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -207,8 +204,14 @@
         if (localStorage.getItem('sirozTheme') === 'light') document.body.classList.add('light-theme');
         updateUI();
         checkLastRead();
-        // دفع حالة البداية لتفعيل زر الرجوع
         history.replaceState({p: 'pHome'}, null, "");
+        
+        // تسجيل نظام الأوفلاين (Service Worker)
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js').then(() => {
+                console.log("Siroz Offline Active!");
+            }).catch(e => console.log(e));
+        }
     };
 
     scrollArea.onscroll = () => {
