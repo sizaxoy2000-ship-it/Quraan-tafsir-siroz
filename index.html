@@ -48,6 +48,30 @@
         .translation-text { font-size: 0.95rem; color: var(--text-trans); opacity: 0.9; display: block; margin-top: 10px; font-style: italic; }
         .back-btn { background: #333; color: white; border: none; padding: 10px 30px; border-radius: 50px; cursor: pointer; margin: 15px 0; font-size: 0.9rem; }
         .footer { padding: 8px; font-size: 0.75rem; color: #888; }
+   .footer-link {
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* خط نحيف جداً للفصل */
+}
+
+.footer-link p {
+    color: #888; /* لون رمادي هادئ */
+    font-size: 14px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.footer-link a {
+    color: #ffcc00; /* لون ذهبي بسيط مثل أزرارك */
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 5px;
+}
+
+.footer-link a:hover {
+    text-decoration: underline; /* يظهر خط تحت الرابط عند مرور الماوس */
+                   }
+                   
     </style>
 </head>
 <body>
@@ -231,5 +255,9 @@
         }
     };
 </script>
+    <div class="footer-link">
+    <p>See also: <a href="https://github.io">Siroz Web</a></p>
+    </div>
+    
 </body>
 </html>
